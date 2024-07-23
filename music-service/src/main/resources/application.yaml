@@ -1,0 +1,12 @@
+spring:
+  liquibase:
+    enabled: true
+  application:
+    name: music-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/spotik
+    username: postgres
+    password: lilasgard228
+  jpa:
+    hibernate:
+      ddl-auto: none
