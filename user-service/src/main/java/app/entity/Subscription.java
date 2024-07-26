@@ -6,7 +6,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name = "subscription")
+@Table(name = "subscription", schema = "spotik")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

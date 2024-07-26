@@ -6,7 +6,6 @@ import lombok.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "artist_user")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

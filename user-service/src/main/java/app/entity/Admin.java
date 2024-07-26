@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

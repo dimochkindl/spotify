@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "playlist")
+@Table(name = "playlist", schema = "spotik")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

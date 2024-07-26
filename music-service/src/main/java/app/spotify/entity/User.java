@@ -1,13 +1,17 @@
 package app.spotify.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Table(name = "user")
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User {
 
     @Id
