@@ -11,7 +11,6 @@ import lombok.*;
 @Getter
 @Setter
 public class ArtistUser extends User{
-    private String info;
 
     private String genre;
 }
