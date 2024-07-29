@@ -19,6 +19,6 @@ public record MusicDto(
 
         @NotNull String genre,
 
-        String lyrics_ref
+        @NotNull String lyrics_ref
 ) {
 }
