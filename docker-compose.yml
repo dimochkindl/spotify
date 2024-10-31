@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15.2-alpine
+    environment:
+      postgresql: spotik
+      postgresql_user: postgres
+      postgresql_password: 1234
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5438:5432"
+    volumes:
+      - ./db/create2.sql:/docker-entrypoint-initdb.d/create2.sql
+      - ./files/music:/music
+      - ./files/texts:/texts

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "album", schema = "spotik")
+@Table(name = "album")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -33,8 +33,5 @@ public class Album {
     private LocalDateTime date;
 
     private String type;
-
-    @OneToMany()
-    private List<AuthorLyrics> authorLyricsList;
 
 }

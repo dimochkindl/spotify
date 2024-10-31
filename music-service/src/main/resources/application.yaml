@@ -10,3 +10,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+  music:
+    file:
+      path: /music
+  text:
+    file:
+      path: /texts

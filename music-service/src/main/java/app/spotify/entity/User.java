@@ -29,8 +29,4 @@ public class User {
 
     @ManyToMany
     private List<Playlist> playlists;
-
-    @ManyToOne
-    @JoinColumn(name = "subscription_id")
-    private Subscription subscription;
 }
