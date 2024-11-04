@@ -1,9 +1,10 @@
 package app.spotify.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,42 +16,22 @@ public class Playlist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String name;
 
-    private float duration;
+    @Column(length = 8)
+    @Pattern(regexp = "^\\d{1,2}:\\d{2}$", message = "Duration must be in the format mm:ss")
+    private String duration;
 
-    @Column(nullable = false, name = "creator")
-    private String creatorUsername;
-
-    private LocalDateTime creationDate;
-
+    @Column(name = "number_of_tracks")
     private int numberOfTracks;
 
+    @Column(name = "number_of_plays")
     private int numberOfPlays;
 
-    @ManyToMany
-    @JoinTable(
-            name = "playlist_music",
-            joinColumns = @JoinColumn(name = "playlist_id"),
-            inverseJoinColumns = @JoinColumn(name = "music_id")
-    )
-    private List<Music> music;
+    @OneToMany(mappedBy = "playlist")
+    private List<Music> songs = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "playlist_author",
-            joinColumns = @JoinColumn(name = "playlist_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id")
-    )
-    private List<Author> authors;
-
-    @ManyToMany
-    @JoinTable(
-            name = "playlist_user",
-            joinColumns = @JoinColumn(name = "playlist_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private List<User> users;
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "playlist")
+    private List<UserPlaylist> userPlaylist;
 }

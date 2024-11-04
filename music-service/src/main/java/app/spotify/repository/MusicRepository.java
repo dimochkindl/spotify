@@ -14,13 +14,13 @@ public interface MusicRepository extends JpaRepository<Music, Integer> {
     @Query(value = "select m from Music m where m.title = :title")
     List<Music> findAllByTitle(@Param("title")String title);
 
-    @Query(value = "select m from Music m inner join Author a where a.nickname = :artist ")
+    @Query(value = "select m from Music m inner join Artist a where a.nickname = :artist ")
     List<Music> findAllByArtist(@Param("artist")String artist);
 
     @Query(value = "select m from Music m inner join Album a where a.title = :album and m.title = :title")
     Optional<Music> findByAlbumAndTitle(@Param("album") String album,@Param("title") String title);
 
-    @Query(value = "select m from Music m inner join Author au inner join Album al where au.nickname = :artist and al.title = :album")
+    @Query(value = "select m from Music m inner join Artist au inner join Album al where au.nickname = :artist and al.title = :album")
     List<Music> findByArtistAndAlbum(@Param("artist")String artist, @Param("album") String album);
 
     @Query(value = "select m from Music m inner join Album a where a.title = :album")

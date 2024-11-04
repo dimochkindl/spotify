@@ -1,10 +1,12 @@
 package app.spotify.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-
-import java.time.LocalDateTime;
-import java.util.List;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "album")
@@ -27,11 +29,19 @@ public class Album {
     @Column(name = "number_of_plays")
     private int numberOfPlays;
 
+    @Column(length = 100)
+    private String genre;
+
+    @Column(length = 8)
+    @Pattern(regexp = "^\\d{1,2}:\\d{2}$", message = "Duration must be in the format mm:ss")
     private String duration;
 
-    @Column(name = "creation_date")
-    private LocalDateTime date;
-
+    @Column(length = 30)
+    @NotBlank
     private String type;
+
+    @ManyToOne
+    @JoinColumn(name = "album_id")
+    private ArtistMusic artistMusic;
 
 }

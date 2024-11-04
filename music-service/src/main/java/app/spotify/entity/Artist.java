@@ -1,9 +1,10 @@
 package app.spotify.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "author", schema = "spotik")
@@ -17,15 +18,13 @@ public class Artist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = 50)
     private String nickname;
 
     @Column(name = "listeners")
     private int numberOfListeners;
 
-    @OneToMany
-    private List<AuthorLyrics> lyricsList;
-
-    @ManyToMany
-    private List<Playlist> playlists;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "artist_id")
+    private ArtistMusic artistMusic;
 }

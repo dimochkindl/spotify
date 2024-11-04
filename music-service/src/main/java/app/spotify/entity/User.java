@@ -1,7 +1,10 @@
 package app.spotify.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -27,6 +30,6 @@ public class User {
     @Column(nullable = false)
     private String email;
 
-    @ManyToMany
-    private List<Playlist> playlists;
+    @OneToMany(mappedBy = "user")
+    private List<UserPlaylist> userPlaylists;
 }
