@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface MusicDtoMapper {
-    MusicDto EntityToDto(Music music);
+    MusicDto entityToDto(Music music);
 
-    Music DtoToEntity(MusicDto musicDto);
+    Music dtoToEntity(MusicDto musicDto);
 }

@@ -4,10 +4,10 @@ import app.spotify.dto.SimpleDto;
 
 import java.util.List;
 
-public interface CrudService<T> {
+public interface CrudService<T extends SimpleDto> {
     SimpleDto findById(int id);
 
-    List<? extends SimpleDto> findAll();
+    List<T> findAll();
 
     void save(T t);
 

@@ -16,3 +16,5 @@ spring:
   text:
     file:
       path: /texts
+  storage:
+    location: /music

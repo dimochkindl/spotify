@@ -1,11 +1,10 @@
 package app.spotify.service.impl;
 
 import app.spotify.dto.MusicDto;
-import app.spotify.dto.SimpleDto;
-import app.spotify.entity.Music;
 import app.spotify.mappers.MusicDtoMapper;
 import app.spotify.repository.MusicRepository;
 import app.spotify.service.MusicService;
+import jakarta.validation.ValidationException;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,31 +33,34 @@ public class MusicServiceImpl implements MusicService {
     public MusicDto findById(int id) {
         var optional = repository.findById(id);
         var entity = optional.orElse(null);
-        return mapper.EntityToDto(entity);
+        return mapper.entityToDto(entity);
     }
 
     @Override
     public List<MusicDto> findAll() {
         var list = repository.findAll();
         List<MusicDto> dto = new ArrayList<>();
-        for(var value: list) {
-            dto.add(mapper.EntityToDto(value));
+        for (var value : list) {
+            dto.add(mapper.entityToDto(value));
         }
         return dto;
     }
 
     @Override
-    public void save(Music music) {
+    public void save(MusicDto music) {
+        if(music == null) {
+            throw new ValidationException("Music cannot be null");
+        }
+        repository.save(mapper.dtoToEntity(music));
+    }
+
+    @Override
+    public void update(MusicDto music) {
 
     }
 
     @Override
-    public void update(Music music) {
-
-    }
-
-    @Override
-    public void delete(Music music) {
+    public void delete(MusicDto music) {
 
     }
 
