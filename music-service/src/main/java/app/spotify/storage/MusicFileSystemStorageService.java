@@ -18,18 +18,18 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 @Service
-public class FileSystemStorageService implements StorageService {
+public class MusicFileSystemStorageService implements StorageService {
 
     private final Path rootLocation;
 
     @Autowired
-    public FileSystemStorageService(StorageProperties properties) {
+    public MusicFileSystemStorageService(StorageProperties properties) {
 
-        if (properties.getLocation().trim().isEmpty()) {
-            throw new StorageException("File upload location can not be Empty.");
+        if (properties.getMusicLocation().trim().isEmpty()) {
+            throw new StorageException("Music file upload location can not be Empty.");
         }
 
-        this.rootLocation = Paths.get(properties.getLocation());
+        this.rootLocation = Paths.get(properties.getMusicLocation());
     }
 
     @Override
@@ -42,7 +42,6 @@ public class FileSystemStorageService implements StorageService {
                             Paths.get(Objects.requireNonNull(file.getOriginalFilename())))
                     .normalize().toAbsolutePath();
             if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
-                // This is a security check
                 throw new StorageException(
                         "Cannot store file outside current directory.");
             }
