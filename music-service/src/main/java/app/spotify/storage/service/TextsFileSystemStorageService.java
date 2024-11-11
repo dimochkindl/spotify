@@ -1,5 +1,9 @@
-package app.spotify.storage;
+package app.spotify.storage.service;
 
+import app.spotify.storage.StorageProperties;
+import app.spotify.storage.StorageService;
+import app.spotify.storage.exception.StorageException;
+import app.spotify.storage.exception.StorageFileNotFoundException;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -81,6 +85,7 @@ public class TextsFileSystemStorageService implements StorageService {
             if(resource.exists() || resource.isReadable()){
                 return resource;
             }else{
+
                 throw new StorageFileNotFoundException("Could not read file: " + filename);
             }
         }catch(MalformedURLException e){
@@ -91,5 +96,24 @@ public class TextsFileSystemStorageService implements StorageService {
     @Override
     public void deleteAll() {
         FileSystemUtils.deleteRecursively(rootLocation.toFile());
+    }
+
+    @Override
+    public void delete(String filename) {
+        if(filename.isBlank()){
+            throw new StorageException("Filename cannot be empty");
+        }
+
+        if(!filename.endsWith(".txt")){
+           filename += ".txt";
+        }
+
+        String filepath = rootLocation.resolve(filename).toString();
+
+        try{
+            Files.deleteIfExists(Path.of(filepath));
+        }catch(IOException e){
+            throw new StorageException("Could not delete file: " + filename, e);
+        }
     }
 }

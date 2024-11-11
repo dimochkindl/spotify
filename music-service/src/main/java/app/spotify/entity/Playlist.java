@@ -33,5 +33,5 @@ public class Playlist {
     private List<Music> songs = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "playlist")
-    private List<UserPlaylist> userPlaylist;
+    private List<UserPlaylist> userPlaylists;
 }

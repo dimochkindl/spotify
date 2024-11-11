@@ -1,4 +1,4 @@
-package app.spotify.storage;
+package app.spotify.storage.exception;
 
 
 public class StorageFileNotFoundException extends StorageException {

@@ -1,5 +1,9 @@
-package app.spotify.storage;
+package app.spotify.storage.service;
 
+import app.spotify.storage.StorageProperties;
+import app.spotify.storage.StorageService;
+import app.spotify.storage.exception.StorageException;
+import app.spotify.storage.exception.StorageFileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -99,6 +103,23 @@ public class MusicFileSystemStorageService implements StorageService {
             Files.createDirectories(rootLocation);
         } catch (IOException e) {
             throw new StorageException("Could not initialize storage", e);
+        }
+    }
+
+    @Override
+    public void delete(String filename) {
+        if(filename.isBlank()) {
+            throw new StorageException("Music filename can not be blank.");
+        }
+        if(!filename.endsWith(".mp3")) {
+            filename += ".mp3";
+        }
+
+        String filepath = String.valueOf(rootLocation.resolve(filename));
+        try{
+            Files.deleteIfExists(Path.of(filepath));
+        }catch(IOException e){
+            throw new StorageException("Could not delete file: " + filename, e);
         }
     }
 }

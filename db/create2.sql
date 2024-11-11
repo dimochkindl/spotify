@@ -1,79 +1,73 @@
-create database spotik;
+CREATE DATABASE spotik;
+
+\c spotik
 
 CREATE TABLE IF NOT EXISTS playlist
 (
-    id integer NOT NULL,
-    name character varying(100) COLLATE pg_catalog."default" NOT NULL,
-    duration character varying(8) COLLATE pg_catalog."default",
+    id serial PRIMARY KEY,
+    name character varying(100) NOT NULL,
+    duration character varying(8),
     number_of_tracks integer,
-    number_of_plays integer,
-    CONSTRAINT pk_playlist PRIMARY KEY (id)
+    number_of_plays integer
 );
 
 CREATE TABLE IF NOT EXISTS album
 (
-    id integer NOT NULL,
-    title character varying(250) COLLATE pg_catalog."default" NOT NULL,
+    id serial PRIMARY KEY,
+    title character varying(250) NOT NULL,
     number_of_tracks integer,
     number_of_plays integer,
-    duration character varying(8) COLLATE pg_catalog."default",
-    type character varying(30) COLLATE pg_catalog."default",
-    CONSTRAINT pk_album PRIMARY KEY (id)
+    duration character varying(8),
+    type character varying(30)
 );
-
 
 CREATE TABLE IF NOT EXISTS music
 (
-    id integer NOT NULL,
-    title character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    duration character varying(8) COLLATE pg_catalog."default",
+    id serial PRIMARY KEY,
+    title character varying(255) NOT NULL,
+    duration character varying(8),
     number_of_plays integer,
-    genre character varying(100) COLLATE pg_catalog."default",
-    lyrics_url character varying(255) COLLATE pg_catalog."default",
+    genre character varying(100),
+    lyrics_url character varying(255),
     playlist_id integer,
-    CONSTRAINT pk_music PRIMARY KEY (id),
-    constraint fk_playlist foreign key (playlist_id) references playlist(id)
+    CONSTRAINT fk_playlist FOREIGN KEY (playlist_id) REFERENCES playlist(id)
 );
 
-CREATE TABLE IF NOT EXISTS "user"
+CREATE TABLE IF NOT EXISTS app_user
 (
-    id integer NOT NULL,
-    username character varying(100) COLLATE pg_catalog."default" NOT NULL,
-    password character varying(10) COLLATE pg_catalog."default" NOT NULL,
-    email character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT pk_user PRIMARY KEY (id),
+    id serial PRIMARY KEY,
+    username character varying(100) NOT NULL,
+    password character varying(10) NOT NULL,
+    email character varying(255) NOT NULL,
     CONSTRAINT user_username_key UNIQUE (username)
 );
 
 CREATE TABLE IF NOT EXISTS artist
 (
-    id integer NOT NULL,
-    nickname character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    id serial PRIMARY KEY,
+    nickname character varying(255) NOT NULL,
     listeners integer,
-    CONSTRAINT pk_artist PRIMARY KEY (id),
     CONSTRAINT artist_nickname_key UNIQUE (nickname)
 );
 
-create table if not exists artist_music
+CREATE TABLE IF NOT EXISTS artist_music
 (
-    id integer,
+    id serial PRIMARY KEY,
     artist_id integer,
     music_id integer,
     album_id integer,
     creation_date date,
-    constraint pk_artist_music primary key (id),
-    constraint fk_artist foreign key (artist_id) references artist (id),
-    constraint fk_album foreign key (album_id) references album (id),
-    constraint fk_music foreign key (music_id) references music (id)
+    CONSTRAINT fk_artist FOREIGN KEY (artist_id) REFERENCES artist (id),
+    CONSTRAINT fk_album FOREIGN KEY (album_id) REFERENCES album (id),
+    CONSTRAINT fk_music FOREIGN KEY (music_id) REFERENCES music (id)
 );
 
-create table if not exists user_playlist
+CREATE TABLE IF NOT EXISTS user_playlist
 (
-    id integer,
+    id serial PRIMARY KEY,
     user_id integer,
     playlist_id integer,
     creation_date date,
-    constraint pk_user_playlist primary key (id),
-    constraint fk_user foreign key (user_id) references "user" (id),
-    constraint fk_playlist foreign key (playlist_id) references playlist (id)
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES app_user (id),
+    CONSTRAINT fk_playlist FOREIGN KEY (playlist_id) REFERENCES playlist (id)
 );

@@ -1,6 +1,7 @@
 package app.spotify.service.impl;
 
-import app.spotify.storage.MusicFileSystemStorageService;
+import app.spotify.storage.service.MusicFileSystemStorageService;
+import app.spotify.storage.service.TextsFileSystemStorageService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +13,28 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 public class MusicUploadToFileService {
 
-    private MusicFileSystemStorageService storageService;
+    private final MusicFileSystemStorageService musicStorageService;
+    private final TextsFileSystemStorageService textStorageService;
 
     @Autowired
-    public MusicUploadToFileService(MusicFileSystemStorageService storageService) {
-        this.storageService = storageService;
+    public MusicUploadToFileService(MusicFileSystemStorageService storageService, TextsFileSystemStorageService textStorageService) {
+        this.musicStorageService = storageService;
+        this.textStorageService = textStorageService;
     }
 
     public void uploadMusic(MultipartFile song, MultipartFile text) {
-        storageService.store(song);
-        storageService.store(text);
+        if(song == null || text == null) {
+            throw new IllegalArgumentException("Song and text must not be null");
+        }
+        musicStorageService.store(song);
+        musicStorageService.store(text);
+    }
 
+    public void deleteMusic(String filename) {
+        if(filename.trim().isEmpty()) {
+            throw new IllegalArgumentException("Filename must not be empty");
+        }
+        musicStorageService.delete(filename);
+        textStorageService.delete(filename);
     }
 }

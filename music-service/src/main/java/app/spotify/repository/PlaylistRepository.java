@@ -13,8 +13,8 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Integer> {
     @Query(value = "select p from Playlist p where p.name = :title")
     Optional<Playlist> findByTitle(@Param("title") String title);
 
-    @Query(value = "select p from Playlist p inner join UserPlaylist up where up.user.username = :username")
-    List<Playlist> findAllByUser(@Param("artistNames") String username);
+    @Query(value = "select p from Playlist p inner join UserPlaylist up where up.appUser.username = :username")
+    List<Playlist> findAllByUser(@Param("username") String username);
 
     @Query(value = "select p from Playlist p inner join Music m where m.title = :track")
     List<Playlist> findByMusicTitle(@Param("track") String track);

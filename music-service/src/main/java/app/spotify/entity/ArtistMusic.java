@@ -28,12 +28,12 @@ public class ArtistMusic {
     @Column(name = "creation_date")
     private LocalDate date;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "artist_music")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "artistMusic")
     private List<Artist> artists;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "artist_music")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "artistMusic")
     private List<Music> music;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "artist_music")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "artistMusic")
     private List<Album> albums;
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Music</title>
+</head>
+<body>
+<h1>Create Music</h1>
+<form action="http://localhost:8080/v1/music/create" method="POST" enctype="multipart/form-data">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="musicDto.title" required><br>
+
+    <label for="artists">Artists:</label>
+    <input type="text" id="artists" name="musicDto.artists" required><br>
+
+    <label for="duration">Duration:</label>
+    <input type="text" id="duration" name="musicDto.duration" required><br>
+
+    <label for="genre">Genre:</label>
+    <input type="text" id="genre" name="musicDto.genre" required><br>
+
+    <label for="music">Music File:</label>
+    <input type="file" id="music" name="music" required><br>
+
+    <label for="text">Text File:</label>
+    <input type="file" id="text" name="text" required><br>
+
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

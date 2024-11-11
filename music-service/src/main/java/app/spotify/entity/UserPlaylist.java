@@ -16,10 +16,10 @@ public class UserPlaylist {
     private LocalDateTime createdAt;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "appUser_id", referencedColumnName = "id")
+    private AppUser appUser;
 
     @ManyToOne
-    @JoinColumn(name = "playlist_id")
+    @JoinColumn(name = "playlist_id", referencedColumnName = "id")
     private Playlist playlist;
 }

@@ -56,16 +56,22 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public void update(MusicDto music) {
-
+        if(music == null) {
+            throw new ValidationException("Music cannot be null");
+        }
+        repository.save(mapper.dtoToEntity(music));
     }
 
     @Override
     public void delete(MusicDto music) {
-
+        if(music == null) {
+            throw new ValidationException("Music cannot be null");
+        }
+        repository.delete(mapper.dtoToEntity(music));
     }
 
     @Override
     public void deleteById(int id) {
-
+        repository.deleteById(id);
     }
 }

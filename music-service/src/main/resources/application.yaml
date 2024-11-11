@@ -1,20 +1,27 @@
 spring:
   liquibase:
     enabled: true
+  servlet:
+    multipart:
+      max-file-size: 40MB
+      max-request-size: 40MB
   application:
     name: music-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/spotik
+    url: jdbc:postgresql://localhost:5438/spotik
     username: postgres
-    password: lilasgard228
+    password: 1234
   jpa:
     hibernate:
-      ddl-auto: none
-  music:
-    file:
-      path: /music
-  text:
-    file:
-      path: /texts
+      ddl-auto: update
+  thymeleaf:
+    prefix:
+    classpath: /templates/
+    suffix: .html
+    enabled: false
   storage:
-    location: /music
+    musicLocation: /music
+    textLocation: /texts
+  logging:
+    level:
+      org.springframework: TRACE
